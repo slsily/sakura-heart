@@ -1,0 +1,33 @@
+:root { color-scheme: dark; font-family: "Microsoft YaHei UI", sans-serif; background: #3b4a61; }
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+#experience { position: relative; width: 100%; height: 100vh; height: 100svh; overflow: hidden; isolation: isolate; }
+#scene { display: block; width: 100%; height: 100%; touch-action: pan-y; }
+.edge-shade { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 40%, transparent 45%, rgba(22, 25, 45, .14)); }
+button, input { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; touch-action: manipulation; }
+.icon-button { display: grid; place-items: center; width: 44px; height: 44px; padding: 12px; border: 0; border-radius: 50%; background: transparent; color: rgba(255, 240, 235, .78); transition: color .2s, background .2s, opacity .2s; }
+.icon-button svg { width: 20px; height: 20px; }
+.icon-button:hover, .icon-button[aria-pressed="true"] { background: rgba(255, 210, 213, .13); color: #ffe4e9; }
+.icon-button:focus-visible, input:focus-visible { outline: 2px solid #ffd2de; outline-offset: 4px; }
+.settings-toggle { position: absolute; bottom: max(22px, env(safe-area-inset-bottom)); right: max(22px, env(safe-area-inset-right)); background: rgba(22, 31, 48, .24); backdrop-filter: blur(12px); opacity: .45; }
+.settings-toggle:hover, .settings-toggle:focus-visible, .settings-toggle[aria-expanded="true"] { opacity: 1; }
+.settings-panel { position: absolute; right: max(22px, env(safe-area-inset-right)); bottom: calc(max(22px, env(safe-area-inset-bottom)) + 56px); width: 218px; padding: 10px 12px 6px; background: rgba(19, 30, 47, .72); border: 1px solid rgba(255, 223, 230, .12); border-radius: 19px; backdrop-filter: blur(20px); box-shadow: 0 12px 35px rgba(10, 20, 35, .12); }
+.phase-buttons, .playback-buttons { display: flex; justify-content: space-between; align-items: center; }
+.palette-buttons { display: flex; justify-content: space-between; align-items: center; margin-top: 3px; padding-top: 3px; border-top: 1px solid rgba(255, 228, 235, .10); }
+.palette-swatch { display: block; width: 19px; height: 19px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255,255,255,.24); }
+[data-palette="sakura"] > .palette-swatch { background: conic-gradient(#fff0f4, #f1aecb, #8b315e, #afa5df, #fff0f4); }
+[data-palette="sea"] > .palette-swatch { background: conic-gradient(#e8f5ff, #91d8db, #6d9ddf, #4c467e, #b9a8e4, #e8f5ff); }
+[data-palette="sunset"] > .palette-swatch { background: conic-gradient(#fff0d4, #ffc4a5, #e78380, #96405e, #e2b761, #fff0d4); }
+[data-palette="garden"] > .palette-swatch { background: conic-gradient(#fff0de, #f09db7, #80afdc, #75609e, #80c6ac, #e3c96e, #fff0de); }
+.palette-button[aria-pressed="true"] > .palette-swatch { box-shadow: 0 0 0 1px #fff0e9, 0 0 0 4px rgba(255,228,235,.11); }
+.playback-buttons { justify-content: space-around; }
+input[type="range"] { appearance: none; -webkit-appearance: none; width: 100%; height: 28px; margin: 3px 0 0; background: transparent; cursor: ew-resize; }
+input[type="range"]::-webkit-slider-runnable-track { height: 2px; border-radius: 2px; background: linear-gradient(90deg, #62638e, #dfafbf 25%, #b8d6d9 50%, #e3a4ad 75%, #62638e); }
+input[type="range"]::-moz-range-track { height: 2px; border-radius: 2px; background: linear-gradient(90deg, #62638e, #dfafbf 25%, #b8d6d9 50%, #e3a4ad 75%, #62638e); }
+input[type="range"]::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 8px; height: 8px; margin-top: -3px; border: 0; border-radius: 50%; background: #ffe1e7; }
+input[type="range"]::-moz-range-thumb { width: 8px; height: 8px; border: 0; border-radius: 50%; background: #ffe1e7; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.unavailable { position: absolute; inset: 45% 20px auto; color: #ffdee5; text-align: center; font-size: 14px; }
+@media (max-width: 600px) { .settings-toggle { right: 14px; bottom: max(14px, env(safe-area-inset-bottom)); } .settings-panel { right: 14px; bottom: calc(max(14px, env(safe-area-inset-bottom)) + 56px); } }
+@media (prefers-reduced-motion: reduce) { * { transition-duration: .01ms !important; } }

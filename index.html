@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#3b4a61">
+  <meta name="description" content="多彩花瓣随风翻卷，汇聚成一颗随晨昏流动的心。">
+  <title>樱花之心</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <main id="experience" aria-label="海边的樱花之心">
+    <canvas id="scene" aria-label="多色花瓣在海面散落、旋转、向上汇聚，沿立体爱心表面流动翻卷；海面随日出日落变色"></canvas>
+    <div class="edge-shade" aria-hidden="true"></div>
+    <button class="settings-toggle icon-button" id="settings" type="button" aria-label="打开画面设置" aria-controls="settings-panel" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.5" fill="currentColor" stroke="none"/><circle cx="15" cy="17" r="2.5" fill="currentColor" stroke="none"/></svg>
+    </button>
+    <section id="settings-panel" class="settings-panel" aria-label="画面设置" hidden>
+      <div class="phase-buttons" role="group" aria-label="选择光线">
+        <button class="icon-button" data-hour="6.4" data-phase="dawn" type="button" aria-label="晨曦" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 18h18M6 22h12M7 15a5 5 0 0 1 10 0M12 2v4M3 7l2 2m16-2-2 2"/></svg></button>
+        <button class="icon-button" data-hour="12.5" data-phase="day" type="button" aria-label="晴昼" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"/></svg></button>
+        <button class="icon-button" data-hour="18" data-phase="dusk" type="button" aria-label="日落" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 18h18M6 22h12M7 15a5 5 0 0 1 10 0M12 2v7m-3-3 3 3 3-3M3 7l2 2m16-2-2 2"/></svg></button>
+        <button class="icon-button" data-hour="22" data-phase="night" type="button" aria-label="夜色" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M20.5 14.5A9 9 0 0 1 9.5 3.4a9 9 0 1 0 11 11.1Z"/></svg></button>
+      </div>
+      <div class="palette-buttons" role="group" aria-label="选择花瓣混色">
+        <button class="icon-button palette-button" data-palette="sakura" type="button" aria-label="粉白紫混色" aria-pressed="true"><span class="palette-swatch" aria-hidden="true"></span></button>
+        <button class="icon-button palette-button" data-palette="sea" type="button" aria-label="海蓝薄荷混色" aria-pressed="false"><span class="palette-swatch" aria-hidden="true"></span></button>
+        <button class="icon-button palette-button" data-palette="sunset" type="button" aria-label="暖霞混色" aria-pressed="false"><span class="palette-swatch" aria-hidden="true"></span></button>
+        <button class="icon-button palette-button" data-palette="garden" type="button" aria-label="缤纷混色" aria-pressed="false"><span class="palette-swatch" aria-hidden="true"></span></button>
+      </div>
+      <input id="time-slider" type="range" min="0" max="24" step="0.01" value="18" aria-label="海岸时刻">
+      <div class="playback-buttons">
+        <button class="icon-button" id="cycle" type="button" aria-label="暂停晨昏流转" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M20 10a8 8 0 0 0-14-4L3 9m0-6v6h6m-5 5a8 8 0 0 0 14 4l3-3m0 6v-6h-6"/></svg></button>
+        <button class="icon-button" id="spin" type="button" aria-label="开启整颗爱心旋转" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-25 12 12)"/><path d="M16 3l3 1-1 3M12 16s-4-2.6-4-5a2.2 2.2 0 0 1 4-1.3A2.2 2.2 0 0 1 16 11c0 2.4-4 5-4 5Z"/></svg></button>
+        <button class="icon-button" id="replay" type="button" aria-label="重新汇聚樱花"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 10a8 8 0 1 1 0 5m0-5V4m0 6h6"/></svg></button>
+        <button class="icon-button" id="pause" type="button" aria-label="暂停动画" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path id="pause-glyph" d="M8 5v14M16 5v14"/></svg></button>
+      </div>
+    </section>
+    <p class="sr-only" id="scene-status" role="status" aria-live="polite"></p>
+    <noscript><p class="unavailable">请开启 JavaScript 以观看动画。</p></noscript>
+  </main>
+</body>
+</html>
